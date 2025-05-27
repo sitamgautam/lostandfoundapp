@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private ItemAdapter itemAdapter;
     private ArrayList<Item> itemList;
     private DatabaseHelper databaseHelper;
-    private Button btnAddItem;
+    private Button btnAddItem, btnShowOnMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         btnAddItem = findViewById(R.id.btnAddItem);
+        btnShowOnMap = findViewById(R.id.btnShowOnMap);  // new button to open map
 
         databaseHelper = new DatabaseHelper(this);
         itemList = new ArrayList<>();
@@ -37,12 +38,15 @@ public class MainActivity extends AppCompatActivity {
 
         loadItemsFromDatabase();
 
-        btnAddItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, AddItemActivity.class);
-                startActivity(intent);
-            }
+        btnAddItem.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, AddItemActivity.class);
+            startActivity(intent);
+        });
+
+        btnShowOnMap.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, MapActivity.class);
+            intent.putParcelableArrayListExtra("itemList", itemList);
+            startActivity(intent);
         });
     }
 
@@ -55,8 +59,10 @@ public class MainActivity extends AppCompatActivity {
                 String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
                 String description = cursor.getString(cursor.getColumnIndexOrThrow("description"));
                 String status = cursor.getString(cursor.getColumnIndexOrThrow("status"));
+                double latitude = cursor.getDouble(cursor.getColumnIndexOrThrow("latitude"));
+                double longitude = cursor.getDouble(cursor.getColumnIndexOrThrow("longitude"));
 
-                Item item = new Item(id, name, description, status);
+                Item item = new Item(id, name, description, status, latitude, longitude);
                 itemList.add(item);
             } while (cursor.moveToNext());
             cursor.close();

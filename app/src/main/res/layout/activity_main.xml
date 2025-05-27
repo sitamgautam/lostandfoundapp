@@ -20,4 +20,15 @@
         android:text="Add Item"
         android:layout_marginTop="16dp"
         android:layout_gravity="center_horizontal" />
+
+    <!-- ✅ New Show on Map Button -->
+    <Button
+        android:id="@+id/btnShowOnMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show on Map"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center_horizontal" />
+
+
 </LinearLayout>

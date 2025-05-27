@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.lostandfoundapp">
+
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -9,8 +15,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
 
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBebXkL1xFNv1anYyd9aDaz5ZFp3Tl8S9Y" />
+
+
         <activity android:name=".ItemDetailActivity" />
         <activity android:name=".AddItemActivity" />
+        <activity android:name=".MapActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
