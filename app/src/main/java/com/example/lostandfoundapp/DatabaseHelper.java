@@ -31,12 +31,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Drop and recreate table (in production you'd migrate data)
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
 
-    // ✅ Insert item with location
+
     public boolean insertItem(String name, String description, String status, double latitude, double longitude) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -50,13 +49,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
-    // 🔍 Get all items
+
     public Cursor getAllItems() {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
     }
 
-    // 🗑️ Delete item by ID
+
     public boolean deleteItem(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         int deletedRows = db.delete(TABLE_NAME, "id = ?", new String[]{String.valueOf(id)});
